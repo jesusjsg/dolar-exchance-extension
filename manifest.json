@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "dolarExchance",
+    "name": "Dolar exchance",
     "version": "1.0",
     "description": "Extensión para convertir dólares a bolívares venezolanos.",
     "action": {

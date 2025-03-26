@@ -24,13 +24,12 @@ nav {
 .github-link {
     text-decoration: none;
     color: black;
-
 }
 
 .select-menu .select-btn {
     display: flex;
     height: 13px;
-    background: green;
+    background: #E5E5E5;
     padding: 10px;
     font-size: 1rem;
     font-weight: 500;
@@ -49,7 +48,7 @@ nav {
     margin-top: 10px;
     max-height: 130px;
     border-radius: 10px;
-    background: green;
+    background: #E5E5E5;
     animation-name: down;
     -webkit-animation-name: down;
     animation-duration: 0.35s;
@@ -64,14 +63,9 @@ nav {
     height: 15px;
     cursor: pointer;
     padding: 7px;
+    margin: 3px;
     border-radius: 10px;
     align-items: center;
-    background: green;
-}
-
-.select-menu .options .option .option-text {
-    
-    text-decoration: none;
 }
 
 .select-menu .options .option:hover {
@@ -88,6 +82,10 @@ nav {
     animation-fill-mode: both;
     -webkit-animation-duration: 0.4s;
     -webkit-animation-fill-mode: both;
+}
+
+.select-menu .options .option .option-text {
+    text-decoration: none;
 }
 
 @keyframes up {

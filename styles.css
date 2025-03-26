@@ -1,0 +1,112 @@
+body {
+    background: white;
+    color: black;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    height: 15rem;
+    margin: 0;
+    padding: 0;
+    width: 24rem;
+}
+
+nav {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5%;
+}
+
+.select-menu {
+    position: relative;
+    width: 100px;
+}
+
+.github-link {
+    text-decoration: none;
+    color: black;
+
+}
+
+.select-menu .select-btn {
+    display: flex;
+    height: 13px;
+    background: green;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 12px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.select-menu .options {
+    display: none;
+    position: absolute;
+    width: 100px;
+    padding: 10;
+    max-width: 100px;
+    margin-top: 10px;
+    max-height: 130px;
+    border-radius: 10px;
+    background: green;
+    animation-name: down;
+    -webkit-animation-name: down;
+    animation-duration: 0.35s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 0.35s;
+    -webkit-animation-fill-mode: both;
+    z-index: 10;
+}
+
+.select-menu .options .option {
+    display: flex;
+    height: 15px;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 10px;
+    align-items: center;
+    background: green;
+}
+
+.select-menu .options .option .option-text {
+    
+    text-decoration: none;
+}
+
+.select-menu .options .option:hover {
+    background: #f2f2f2;
+}
+
+.select-menu.active .options {
+    display: block;
+    opacity: 0;
+    z-index: 10;
+    animation-name: up;
+    -webkit-animation-name: up;
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+}
+
+@keyframes up {
+    from {
+        transform: translate3d(0, 30px 0);
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes down {
+    from {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    to {
+        transform: translate3d(0, 20px, 0);
+        opacity: 0;
+    }
+}

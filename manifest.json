@@ -3,8 +3,12 @@
     "name": "Dolar exchance",
     "version": "1.0",
     "description": "Extensión para convertir dólares a bolívares venezolanos.",
-    "action": {
-        "default_popup": "popup.html"
+    "permisions": ["activeTab", "scripting"],
+    "background": {
+        "service_worker": "background.js"
     },
-    "permissions": ["activeTab"]
+    "action": {
+        "default_title": "Consulta de tasas",
+        "default_popup": "popup.html"
+    }
 }

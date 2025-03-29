@@ -4,6 +4,7 @@
     "version": "1.0",
     "description": "Extensión para convertir dólares a bolívares venezolanos.",
     "permisions": ["activeTab", "scripting"],
+    "host_permissions": ["https://pydolarve.org/api/v1/*"],
     "background": {
         "service_worker": "background.js"
     },

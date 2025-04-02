@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dolar exchance</title>
         <link rel="stylesheet" href="popup.css">
+        <script type="module" src="popup.js"></script>
     </head>
     <body>
         <header>
             <nav>
-                <a href="https://github.com/jesusjsg" class="github-link">
+                <a href="https://github.com/jesusjsg/dolar-exchance-extension" target="_blank" class="github-link">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
                         viewBox="0 0 24 24" 
@@ -28,12 +29,17 @@
                         <span class="btn-text">Tasas</span>
                     </div>
                     <ul class="options">
-                        <li class="option"><span class="option-text" href="#" data-tasa="bcv">BCV</span></li>
-                        <li class="option"><span class="option-text" href="#" data-tasa="paralelo">Paralelo</span></li>
-                        <li class="option"><span class="option-text" href="#" data-tasa="promedio">Promedio</span></li>
+                        <li class="option"><span class="option-text" data-tasa="bcv">BCV</span></li>
+                        <li class="option"><span class="option-text" data-tasa="enparalelovzla">Paralelo</span></li>
+                        <li class="option"><span class="option-text" data-tasa="euro">Euro</span></li>
                     </ul>
                 </div>
-                <span class="toggle-color-mode">Color</span>
+                <div class="toggle-color-mode">
+                    <label class="theme-switch" for="switch">
+                        <input type="checkbox" id="checkbox" />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </nav>
         </header>
         <main>
@@ -41,6 +47,5 @@
                 <span id="current-dolar"></span>
             </section>
         </main>
-        <script src="popup.js"></script>
     </body>
 </html>

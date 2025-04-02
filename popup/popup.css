@@ -1,12 +1,26 @@
+:root {
+    --text-color: #000;
+    --bg-color: #E9ECEF;
+    --button: #E5E5E5;
+    --option-button: #E5E5E5
+}
+
+[data-theme="dark"] {
+    --text-color: #fff;
+    --bg-color: #0A0908;
+    --button: #343A40;
+    --option-button: #E5E5E5;
+}
+
 body {
-    background: white;
-    color: black;
+    background: var(--bg-color);
+    color: var(--text-color);
     font-family: 'Arial', sans-serif;
     font-size: 1rem;
-    height: 15rem;
+    height: 16rem;
     margin: 0;
     padding: 0;
-    width: 24rem;
+    width: 26rem;
 }
 
 nav {
@@ -29,7 +43,7 @@ nav {
 .select-menu .select-btn {
     display: flex;
     height: 13px;
-    background: #E5E5E5;
+    background: var(--button);
     padding: 10px;
     font-size: 1rem;
     font-weight: 500;
@@ -48,7 +62,7 @@ nav {
     margin-top: 10px;
     max-height: 130px;
     border-radius: 10px;
-    background: #E5E5E5;
+    background: var(--option-button);
     animation-name: down;
     -webkit-animation-name: down;
     animation-duration: 0.35s;
@@ -86,6 +100,60 @@ nav {
 
 .select-menu .options .option .option-text {
     text-decoration: none;
+}
+
+.toggle-color-mode {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    display: inline-block;
+    position: relative;
+    height: 34px;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider::before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+
+input:checked + .slider {
+    background-color: #66bb6a;
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round::before {
+    border-radius: 50%;
 }
 
 @keyframes up {

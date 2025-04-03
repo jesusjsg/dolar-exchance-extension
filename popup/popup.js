@@ -3,7 +3,8 @@ const selectBtn = document.querySelector(".select-btn")
 const options = document.querySelectorAll(".options .option")
 const btnText = document.querySelector(".btn-text")
 const currentValue = document.querySelector("#current-dolar")
-const toggleColorMode = document.querySelector('.theme-switch input[type="checkbox"]')
+const toggleButton = document.getElementById("toggle-color-mode")
+const body = document.body
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchDollarData('bcv')    
@@ -20,7 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchDollarData(optionValue)
         })
     })
-    toggleColorMode.addEventListener('change', toggleMode, false)
+    
+    toggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark-mode')
+        
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark-mode')
+        } else {
+            localStorage.setItem('theme', '')
+        }
+    })
 })
 
 function fetchDollarData(rate) {
@@ -37,12 +47,4 @@ function fetchDollarData(rate) {
             console.error('Error fetching the data: ', response ? response.error : 'Unknown error')
         } 
     })
-}
-
-function toggleMode(event) {
-    if (event.target.checked) {
-        document.documentElement.setAttribute('data-theme', 'dark')
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light')
-    }
 }

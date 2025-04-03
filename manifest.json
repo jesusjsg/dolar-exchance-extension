@@ -3,7 +3,11 @@
     "name": "Dolar exchance",
     "version": "1.0",
     "description": "Extensión para convertir dólares a bolívares venezolanos.",
-    "permissions": ["activeTab", "scripting"],
+    "permissions": [
+        "activeTab", 
+        "scripting", 
+        "storage"
+    ],
     "host_permissions": ["https://pydolarve.org/api/v1/*"],
     "background": {
         "service_worker": "background.js"

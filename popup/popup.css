@@ -1,14 +1,16 @@
 :root {
-    --text-color: #000;
-    --bg-light: #E9ECEF;
-    --bg-dark: #343A40;
-    --button: #E5E5E5;
-    --option-button: #E5E5E5
+    --text-color-dark: #000;
+    --text-color-light: #fff;
+    --bg-light: #edf2f4;
+    --bg-dark: #001219;
+    --button-light: #E5E5E5;
+    --button-dark: #2c3038;
+    --option-button-dark: #57606f;
 }
 
 body {
     background: var(--bg-light);
-    color: var(--text-color);
+    color: var(--text-color-dark);
     font-family: 'Arial', sans-serif;
     font-size: 1rem;
     height: 16rem;
@@ -31,13 +33,13 @@ nav {
 
 .github-link {
     text-decoration: none;
-    color: black;
+    color: var(--text-color-dark);
 }
 
 .select-menu .select-btn {
     display: flex;
     height: 13px;
-    background: var(--button);
+    background: var(--button-light);
     padding: 10px;
     font-size: 1rem;
     font-weight: 500;
@@ -56,7 +58,7 @@ nav {
     margin-top: 10px;
     max-height: 130px;
     border-radius: 10px;
-    background: var(--option-button);
+    background: var(--button-light);
     animation-name: down;
     -webkit-animation-name: down;
     animation-duration: 0.35s;
@@ -77,7 +79,7 @@ nav {
 }
 
 .select-menu .options .option:hover {
-    background: #f2f2f2;
+    background: #cecece;
 }
 
 .select-menu.active .options {
@@ -105,6 +107,22 @@ nav {
 .dark-mode {
     background-color: var(--bg-dark);
     color: var(--bg-light);
+
+    & .github-link {
+        color: var(--text-color-light);
+    }
+
+    & .select-menu .select-btn {
+        background: var(--button-dark);
+    }
+
+    & .select-menu .options {
+        background: var(--button-dark);
+
+        & .option:hover {
+            background: #3c3d3f;
+        }
+    }
 }
 
 .sun-icon .moon-icon {

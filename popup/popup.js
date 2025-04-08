@@ -7,6 +7,7 @@ const toggleButton = document.getElementById("toggle-color-mode")
 const body = document.body
 
 document.addEventListener('DOMContentLoaded', () => {
+    loadTheme()
     fetchDollarData('bcv')    
 
     selectBtn.addEventListener('click', () => {
@@ -21,17 +22,25 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchDollarData(optionValue)
         })
     })
-    
     toggleButton.addEventListener('click', () => {
         body.classList.toggle('dark-mode')
-        
-        if (body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark-mode')
-        } else {
-            localStorage.setItem('theme', '')
+        saveTheme(body.classList.contains('dark-mode') ? 'dark-mode' : '')
+    })   
+})
+
+function loadTheme() {
+    chrome.storage.local.get(['theme'], (result) => {
+        if (result.theme === 'dark-mode') {
+            body.classList.add('dark-mode')
         }
     })
-})
+}
+
+function saveTheme(theme) {
+    chrome.storage.local.set({ theme: theme}, () => {
+        console.log('Theme saved: ', theme)
+    })
+}
 
 function fetchDollarData(rate) {
     chrome.runtime.sendMessage({ action: 'fetchDollarData' }, (response) => {

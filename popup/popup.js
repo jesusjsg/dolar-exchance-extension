@@ -9,24 +9,29 @@ const body = document.body
 document.addEventListener('DOMContentLoaded', () => {
     loadTheme()
     fetchDollarData('bcv')    
-
-    selectBtn.addEventListener('click', () => {
-        tasasMenu.classList.toggle('active')
-    })
-
-    options.forEach((option) => {
-        option.addEventListener('click', () => {
-            let optionValue = option.querySelector('.option-text').getAttribute('data-tasa') 
-            btnText.innerText = option.querySelector('.option-text').innerText
-            tasasMenu.classList.remove('active')
-            fetchDollarData(optionValue)
-        })
-    })
-    toggleButton.addEventListener('click', () => {
-        body.classList.toggle('dark-mode')
-        saveTheme(body.classList.contains('dark-mode') ? 'dark-mode' : '')
-    })   
+    
+    selectBtn.addEventListener('click', toggleMenu)
+    options.forEach(
+        option => option.addEventListener('click', () => selectOption(option))
+    )
+    toggleButton.addEventListener('click', toggleTheme)
 })
+
+function toggleMenu() {
+    tasasMenu.classList.toggle('active')
+}
+
+function selectOption(option) {
+    const optionValue = option.querySelector('.option-text').getAttribute('data-tasa')
+    btnText.innerText = option.querySelector('.option-text').innerText
+    tasasMenu.classList.remove('active')
+    fetchDollarData(optionValue)
+}
+
+function toggleTheme() {
+    body.classList.toggle('dark-mode')
+    saveTheme(body.classList.contains('dark-mode') ? 'dark-mode' : '')
+}
 
 function loadTheme() {
     chrome.storage.local.get(['theme'], (result) => {

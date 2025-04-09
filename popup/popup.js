@@ -2,9 +2,12 @@ const tasasMenu = document.querySelector(".select-menu")
 const selectBtn = document.querySelector(".select-btn")
 const options = document.querySelectorAll(".options .option")
 const btnText = document.querySelector(".btn-text")
-const currentValue = document.querySelector("#current-dolar")
 const toggleButton = document.getElementById("toggle-color-mode")
+const bolivarInput = document.getElementById("bolivares")
+const dolarInput = document.getElementById("dolares")
 const body = document.body
+
+let currentRate = 0
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTheme()
@@ -15,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         option => option.addEventListener('click', () => selectOption(option))
     )
     toggleButton.addEventListener('click', toggleTheme)
+    dolarInput.addEventListener('input', calculateBolivares)
 })
 
 function toggleMenu() {
@@ -55,10 +59,16 @@ function fetchDollarData(rate) {
         }
         
         if (response && response.success) {
-            const price = response.data.monitors[rate].price
-            currentValue.textContent = `La tasa ${rate} tiene un valor de ${price}`
+            currentRate = response.data.monitors[rate].price
+            calculateBolivares() 
         } else {
             console.error('Error fetching the data: ', response ? response.error : 'Unknown error')
         } 
     })
+}
+
+function calculateBolivares() {
+    const dolarValue = parseFloat(dolarInput.value) || 0
+    const bolivarValue = dolarValue * currentRate
+    bolivarInput.value = bolivarValue.toFixed(2)
 }

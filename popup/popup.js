@@ -5,6 +5,7 @@ const btnText = document.querySelector(".btn-text")
 const toggleButton = document.getElementById("toggle-color-mode")
 const bolivarInput = document.getElementById("bolivares")
 const dolarInput = document.getElementById("dolares")
+const dateInput = document.getElementById("currentDate")
 const body = document.body
 
 let currentRate = 0
@@ -60,6 +61,8 @@ function fetchDollarData(rate) {
         
         if (response && response.success) {
             currentRate = response.data.monitors[rate].price
+            const currentDate = response.data.monitors[rate].last_update
+            dateInput.textContent = currentDate
             calculateBolivares() 
         } else {
             console.error('Error fetching the data: ', response ? response.error : 'Unknown error')

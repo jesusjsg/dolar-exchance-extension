@@ -75,9 +75,14 @@
         </header>
         <main>
             <div class="container">
-                <input type="number" name="dolares" id="dolares" value="1" placeholder="USD" />
-                <div class="cross"></div>
-                <input type="number" name="bolivares" id="bolivares" value="" placeholder="BSF" />
+                <div class="input-container">
+                    <input type="number" name="dolares" id="dolares" value="1" />
+                    <div class="cross"></div>
+                    <input type="number" name="bolivares" id="bolivares" readonly />
+                </div>
+                <div class="date-container">
+                    <span id="currentDate" class="currentDate"></span> 
+                </div>
             </div>
         </main>
     </body>

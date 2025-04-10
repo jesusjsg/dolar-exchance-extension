@@ -19,19 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
         option => option.addEventListener('click', () => selectOption(option))
     )
     toggleButton.addEventListener('click', toggleTheme)
-    dolarInput.addEventListener('input', calculateBolivares)
 })
 
-function toggleMenu() {
-    tasasMenu.classList.toggle('active')
-}
 
-function selectOption(option) {
-    const optionValue = option.querySelector('.option-text').getAttribute('data-tasa')
-    btnText.innerText = option.querySelector('.option-text').innerText
-    tasasMenu.classList.remove('active')
-    fetchDollarData(optionValue)
-}
+// Theme functions
 
 function toggleTheme() {
     body.classList.toggle('dark-mode')
@@ -50,6 +41,19 @@ function saveTheme(theme) {
     chrome.storage.local.set({ theme: theme}, () => {
         console.log('Theme saved: ', theme)
     })
+}
+
+// Menu functions
+
+function toggleMenu() {
+    tasasMenu.classList.toggle('active')
+}
+
+function selectOption(option) {
+    const optionValue = option.querySelector('.option-text').getAttribute('data-tasa')
+    btnText.innerText = option.querySelector('.option-text').innerText
+    tasasMenu.classList.remove('active')
+    fetchDollarData(optionValue)
 }
 
 function fetchDollarData(rate) {
@@ -71,7 +75,7 @@ function fetchDollarData(rate) {
 }
 
 function calculateBolivares() {
-    const dolarValue = parseFloat(dolarInput.value) || 0
+    const dolarValue = parseFloat(dolarInput.value.replace(/[^0-9.]/g, '')) || 0
     const bolivarValue = dolarValue * currentRate
     bolivarInput.value = bolivarValue.toFixed(2)
 }

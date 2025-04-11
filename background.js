@@ -18,8 +18,22 @@ async function request() {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "fetchDollarData") {
-        request().then((result) => {
-            sendResponse(result)
+        chrome.storage.local.get(['dollarData', 'lastFetchTime'], async (result) => {
+            const currentTime = Date.now()
+            const fifteenMinutes = 15 * 60 * 1000
+
+            if (result.dollarData && result.lastFetchTime && (currentTime - result.lastFetchTime < fifteenMinutes)) {
+                sendResponse({ success: true, data: result.dollarData })
+            } else {
+                const fetchResult = await request()
+                if (fetchResult.success) {
+                    chrome.storage.local.set({
+                        dollarData: fetchResult.data,
+                        lastFetchTime: currentTime
+                    })
+                }
+                sendResponse(fetchResult)
+            }
         })
         return true
     }

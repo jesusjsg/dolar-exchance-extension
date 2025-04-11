@@ -70,73 +70,57 @@ function handleUSDInputFormatting() {
     }
     
     if (numericString === '') {
-        input.value = '';
-        updateVesOutput(); // Update VES output (will show 0,00)
-        return;
+        input.value = ''
+        updateVesOutput()
+        return
     }
 
-    // 2. Split into integer and decimal parts
     const parts = numericString.split('.');
-    let integerPart = parts[0];
-    let decimalPart = parts[1];
+    let integerPart = parts[0]
+    let decimalPart = parts[1]
 
-    // 3. Format integer part (remove leading zeros, add commas using en-US)
     if (integerPart.length > 1 && integerPart.startsWith('0')) {
-        integerPart = integerPart.replace(/^0+/, ''); // Remove leading zeros (e.g., "007" -> "7")
+        integerPart = integerPart.replace(/^0+/, '')
     }
      if (integerPart === '') {
-         integerPart = '0'; // If input was "0.", integer part is "0"
+         integerPart = '0'
      }
 
-    // Use BigInt for safety with very large numbers, fallback to Number if needed.
-    // Note: BigInt doesn't support decimals, so we only use it for the integer part.
-    let formattedInteger;
+    let formattedInteger
+
     try {
-        formattedInteger = BigInt(integerPart).toLocaleString('en-US');
+        formattedInteger = BigInt(integerPart).toLocaleString('en-US')
     } catch (e) {
-        // Fallback for potentially non-integer strings if BigInt fails (shouldn't happen with cleaning)
-        formattedInteger = Number(integerPart).toLocaleString('en-US');
+        formattedInteger = Number(integerPart).toLocaleString('en-US')
     }
 
-
-    // 4. Limit decimal part to 2 digits
     if (decimalPart !== undefined) {
-        decimalPart = decimalPart.substring(0, 2);
+        decimalPart = decimalPart.substring(0, 2)
     }
 
-    // 5. Reconstruct the formatted value
     let formattedValue = formattedInteger;
-    if (decimalPart !== undefined) { // Check if there *was* a decimal part
-        formattedValue += '.' + (decimalPart || ''); // Append dot and decimals (or empty string if just '.')
+    if (decimalPart !== undefined) {
+        formattedValue += '.' + (decimalPart || '')
     }
 
-    // 6. Update the input field's value
-    input.value = formattedValue;
+    input.value = formattedValue
 
-    // 7. Adjust cursor position (Heuristic)
-    const newLength = formattedValue.length;
-    let newCursorPos = originalCursorPos + (newLength - originalLength);
+    const newLength = formattedValue.length
+    let newCursorPos = originalCursorPos + (newLength - originalLength)
 
-    // Special adjustment: If user just typed a period, move cursor after it.
-    const justTypedDot = value[originalCursorPos - 1] === '.' && !value.substring(0, originalCursorPos - 1).includes('.');
+    const justTypedDot = value[originalCursorPos - 1] === '.' && !value.substring(0, originalCursorPos - 1).includes('.')
     if (justTypedDot && formattedValue.includes('.')) {
-        newCursorPos = formattedValue.indexOf('.') + 1;
+        newCursorPos = formattedValue.indexOf('.') + 1
     }
 
-    // Ensure cursor is within bounds
-    newCursorPos = Math.max(0, Math.min(newCursorPos, newLength));
+    newCursorPos = Math.max(0, Math.min(newCursorPos, newLength))
 
-    // Use requestAnimationFrame to potentially avoid race conditions with value setting
      requestAnimationFrame(() => {
-        input.setSelectionRange(newCursorPos, newCursorPos);
+        input.setSelectionRange(newCursorPos, newCursorPos)
      });
 
-
-    // 8. Trigger the update of the Bolivares field
-    updateVesOutput();
+    updateVesOutput()
 }
-
-
 
 // Theme functions
 
@@ -173,20 +157,20 @@ function selectOption(option) {
 function fetchDollarData(rateKey) {
     chrome.runtime.sendMessage({ action: 'fetchDollarData' }, (response) => {
         if (chrome.runtime.lastError) {
-            console.error('Runtime error:', chrome.runtime.lastError.message);
+            console.error('Runtime error:', chrome.runtime.lastError.message)
             return;
         }
 
         if (response && response.success && response.data?.monitors?.[rateKey]) {
-            const rateData = response.data.monitors[rateKey];
-            currentRate = parseFloat(rateData.price) || 0; // Ensure rate is a number
-            dateInput.textContent = rateData.last_update || 'Fecha no disponible';
-            updateVesOutput(); // Recalculate with the new rate and existing USD input
+            const rateData = response.data.monitors[rateKey]
+            currentRate = parseFloat(rateData.price) || 0
+            dateInput.textContent = rateData.last_update || 'Fecha no disponible'
+            updateVesOutput() // Recalculate with the new rate and existing USD input
         } else {
-            console.error('Error fetching data or rate key not found:', rateKey, response);
-            currentRate = 0; // Reset rate
-            dateInput.textContent = 'Tasa no encontrada';
-            updateVesOutput(); // Update VES output (will show 0,00)
+            console.error('Error fetching data or rate key not found:', rateKey, response)
+            currentRate = 0
+            dateInput.textContent = 'Tasa no encontrada'
+            updateVesOutput()
         }
     })
 

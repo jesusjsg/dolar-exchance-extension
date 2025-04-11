@@ -184,6 +184,7 @@ nav {
 }
 
 input {
+    text-align: center;
     background: transparent;
     width: 40%;
     border: 0;

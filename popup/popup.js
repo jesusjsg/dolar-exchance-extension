@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dolarInput.addEventListener('input', handleUSDInputFormatting)
 })
 
-// Helper functions -> move to util file
+// Format currency functions
 
 function formatBolivares(number) {
     if (isNaN(number)) {
@@ -61,66 +61,64 @@ function handleUSDInputFormatting() {
     const input = dolarInput
     let value = input.value
     const originalCursorPos = input.selectionStart
-    const originalLength = value.length
 
     let numericString = cleanUSDString(value)
 
-    if (numericString === '.') {
-        numericString = '0.'
+    if (numericString.startsWith('.')) {
+        numericString = '0' + numericString
     }
-    
     if (numericString === '') {
-        input.value = ''
-        updateVesOutput()
+         if (input.value !== '') {
+            input.value = ''
+            updateVesOutput()
+         }
         return
     }
 
-    const parts = numericString.split('.');
+    const parts = numericString.split('.')
     let integerPart = parts[0]
     let decimalPart = parts[1]
 
     if (integerPart.length > 1 && integerPart.startsWith('0')) {
         integerPart = integerPart.replace(/^0+/, '')
-    }
-    if (integerPart === '') {
-        integerPart = '0'
+        if (integerPart === '') { 
+            integerPart = '0' 
+        }
     }
 
-    let formattedInteger
-
-    try {
-        formattedInteger = BigInt(integerPart).toLocaleString('en-US')
-    } catch (e) {
-        formattedInteger = Number(integerPart).toLocaleString('en-US')
+    if (integerPart === '') { 
+        integerPart = '0' 
     }
 
     if (decimalPart !== undefined) {
         decimalPart = decimalPart.substring(0, 2)
     }
 
-    let formattedValue = formattedInteger;
-
+    let formattedValue = integerPart
     if (decimalPart !== undefined) {
         formattedValue += '.' + (decimalPart || '')
+    } else if (numericString.includes('.')) {
+         formattedValue += '.';
     }
 
-    input.value = formattedValue
+    if (input.value !== formattedValue) {
+        const lengthDiff = formattedValue.length - input.value.length
+        input.value = formattedValue
 
-    const newLength = formattedValue.length
-    let newCursorPos = originalCursorPos + (newLength - originalLength)
+        let newCursorPos = Math.max(0, originalCursorPos + lengthDiff)
 
-    const justTypedDot = value[originalCursorPos - 1] === '.' && !value.substring(0, originalCursorPos - 1).includes('.')
-    if (justTypedDot && formattedValue.includes('.')) {
-        newCursorPos = formattedValue.indexOf('.') + 1
+        const justTypedDot = value[originalCursorPos - 1] === '.' && formattedValue.includes('.') && formattedValue.indexOf('.') === (newCursorPos -1)
+        if (justTypedDot) {
+            newCursorPos = formattedValue.indexOf('.') + 1
+        }
+
+        newCursorPos = Math.max(0, Math.min(newCursorPos, formattedValue.length))
+
+        requestAnimationFrame(() => {
+            input.setSelectionRange(newCursorPos, newCursorPos)
+        });
     }
-
-    newCursorPos = Math.max(0, Math.min(newCursorPos, newLength))
-
-     requestAnimationFrame(() => {
-        input.setSelectionRange(newCursorPos, newCursorPos)
-     });
-
-    updateVesOutput()
+    updateVesOutput();
 }
 
 // Theme functions

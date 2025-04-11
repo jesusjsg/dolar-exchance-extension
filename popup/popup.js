@@ -82,9 +82,9 @@ function handleUSDInputFormatting() {
     if (integerPart.length > 1 && integerPart.startsWith('0')) {
         integerPart = integerPart.replace(/^0+/, '')
     }
-     if (integerPart === '') {
-         integerPart = '0'
-     }
+    if (integerPart === '') {
+        integerPart = '0'
+    }
 
     let formattedInteger
 
@@ -99,6 +99,7 @@ function handleUSDInputFormatting() {
     }
 
     let formattedValue = formattedInteger;
+
     if (decimalPart !== undefined) {
         formattedValue += '.' + (decimalPart || '')
     }
@@ -173,7 +174,6 @@ function fetchDollarData(rateKey) {
             updateVesOutput()
         }
     })
-
 }
 
 function calculateBolivares() {

@@ -14,6 +14,7 @@
     },
     "action": {
         "default_title": "Consulta de tasas",
-        "default_popup": "popup/popup.html"
+        "default_popup": "popup/popup.html",
+        "default_icon": "images/icon-32.png"
     }
 }

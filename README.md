@@ -13,14 +13,7 @@ Las valores de las tasas se obtienen mediante el uso de la API [pydolarve](https
 
 Puedes instalar la extensión de dos maneras:
 
-**Opción 1: Desde la Chrome Web Store**
-
-1. Ve a la página de la extensión en la Chrome Web Store:
-    [Descargar Instant Dollar VE](https://github.com)
-2. Haz clic en el botón "Añadir a Chrome".
-3. El icono aparacerá en tu barra de herramientas.
-
-**Opción 2: Instalación manual (Para desarrollo)**
+**Instalación manual (Para desarrollo)**
 
 1. Clona el repositorio
 ```bash

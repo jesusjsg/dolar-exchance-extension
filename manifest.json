@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Dolar exchance",
+    "name": "Instant Dollar VE",
     "version": "1.0",
     "description": "Extensión para convertir dólares a bolívares venezolanos.",
     "permissions": [
